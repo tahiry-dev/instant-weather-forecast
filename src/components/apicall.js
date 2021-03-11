@@ -1,4 +1,17 @@
 const APIKEY = '5020f52919e5e158831dceb8b9d46e77';
+import { orderedDay } from './dayManagement';
+
+let apiData;
+let weather = document.querySelector('.weather');
+let temperature = document.querySelector('.temperature');
+let localization = document.querySelector('.localization');
+let hours = document.querySelectorAll('.hour-forecast-name');
+let values = document.querySelectorAll('.hour-forecast-value');
+let days = document.querySelectorAll('.day-forecast-name');
+let daysValues = document.querySelectorAll('.day-forecast-value');
+let logoImg = document.querySelector('.logo');
+const img = document.createElement('img');
+
 
 export const callApi = (lat, lon, currentTime) => {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&
@@ -8,14 +21,12 @@ lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
         })
         .then((informations) => {
             apiData = informations
-            console.log(apiData.current.dt);
             weather.innerText = apiData.current.weather[0].description;
             temperature.innerText = `${Math.trunc(apiData.current.temp)}°C`;
 
             let cityName = (apiData.timezone).split("/");
             localization.innerText = cityName[1];
 
-            // let currentTime = new Date().getHours();
             for (let i = 0; i < hours.length; i++) {
                 let incrHour = currentTime + i * 3;
 
