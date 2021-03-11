@@ -50,13 +50,43 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 
 /***/ }),
 
+/***/ "./src/components/apicall.js":
+/*!***********************************!*\
+  !*** ./src/components/apicall.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"callApi\": () => (/* binding */ callApi)\n/* harmony export */ });\n/* harmony import */ var _dayManagement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dayManagement */ \"./src/components/dayManagement.js\");\nconst APIKEY = '5020f52919e5e158831dceb8b9d46e77';\n\n\nlet apiData;\nlet weather = document.querySelector('.weather');\nlet temperature = document.querySelector('.temperature');\nlet localization = document.querySelector('.localization');\nlet hours = document.querySelectorAll('.hour-forecast-name');\nlet values = document.querySelectorAll('.hour-forecast-value');\nlet days = document.querySelectorAll('.day-forecast-name');\nlet daysValues = document.querySelectorAll('.day-forecast-value');\nlet logoImg = document.querySelector('.logo');\nconst img = document.createElement('img');\n\n\nconst callApi = (lat, lon, currentTime) => {\n    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&\nlon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)\n        .then((response) => {\n            return response.json();\n        })\n        .then((informations) => {\n            apiData = informations\n            weather.innerText = apiData.current.weather[0].description;\n            temperature.innerText = `${Math.trunc(apiData.current.temp)}°C`;\n\n            let cityName = (apiData.timezone).split(\"/\");\n            localization.innerText = cityName[1];\n\n            for (let i = 0; i < hours.length; i++) {\n                let incrHour = currentTime + i * 3;\n\n                if (incrHour > 24) {\n                    hours[i].innerText = `${incrHour - 24}:00`\n                } else if (incrHour === 24) {\n                    hours[i].innerText = '00:00'\n                } else {\n                    hours[i].innerText = `${incrHour}:00`\n                }\n\n            }\n\n            for (let j = 0; j < values.length; j++) {\n                values[j].innerText = `${Math.trunc(apiData.hourly[j * 3].temp)}°C`\n            }\n\n            for (let k = 0; k < _dayManagement__WEBPACK_IMPORTED_MODULE_0__.orderedDay.length; k++) {\n                days[k].innerText = _dayManagement__WEBPACK_IMPORTED_MODULE_0__.orderedDay[k].slice(0, 3);\n            }\n\n            for (let m = 0; m < 7; m++) {\n                daysValues[m].innerText = `${Math.trunc(apiData.daily[m + 1].temp.day)}°C`;\n            }\n\n            if (currentTime >= 6 && currentTime < 21) {\n                img.setAttribute('alt', 'logo of weather');\n                img.setAttribute('src', `svgs/day/${apiData.current.weather[0].icon}.svg`);\n            } else {\n                img.setAttribute('alt', 'logo of weather');\n                img.setAttribute('src', `svgs/night/${apiData.current.weather[0].icon}.svg`);\n            }\n\n            logoImg.appendChild(img);\n\n        })\n}\n\n//# sourceURL=webpack://weather/./src/components/apicall.js?");
+
+/***/ }),
+
+/***/ "./src/components/dayManagement.js":
+/*!*****************************************!*\
+  !*** ./src/components/dayManagement.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"orderedDay\": () => (/* binding */ orderedDay)\n/* harmony export */ });\nconst daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];\n\nlet now = new Date();\nlet options = { weekday: 'long' };\nlet today = now.toLocaleDateString('en-EN', options);\n\ntoday = today.charAt(0).toUpperCase() + today.slice(1);\n\nlet order_1 = daysOfWeek.slice(daysOfWeek.indexOf(today));\nlet order_2 = daysOfWeek.slice(0, daysOfWeek.indexOf(today));\n\nconst orderedDay = order_1.concat(order_2);\n\n\n//# sourceURL=webpack://weather/./src/components/dayManagement.js?");
+
+/***/ }),
+
+/***/ "./src/components/localization.js":
+/*!****************************************!*\
+  !*** ./src/components/localization.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"locateCity\": () => (/* binding */ locateCity)\n/* harmony export */ });\n/* harmony import */ var _apicall__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apicall */ \"./src/components/apicall.js\");\n\n\nconst MAPKEY = 'e38f9a4538444e94bac42b28e4027be5';\nconst TIMEKEY = '99a67da6f017470da19b331a2c14b86c';\n\nlet input = document.getElementById('city');\nlet apiData;\n\nconst locateCity = (city) => {\n    fetch(`http://api.positionstack.com/v1/forward?access_key=${MAPKEY}&query=${city}`)\n\n        .then((response) => {\n            return response.json();\n        })\n        .then((informations) => {\n            apiData = informations\n            let latitude = apiData.data[0].latitude;\n            let longitude = apiData.data[0].longitude;\n            console.log(longitude);\n            fetch(`https://api.ipgeolocation.io/timezone?apiKey=${TIMEKEY}&lat=${latitude}&long=${longitude}`)\n                .then((data => {\n                    return data.json();\n                }))\n                .then((info) => {\n                    let time = info.time_24;\n                    let sym = time.split(':');\n                    let chosenCityTime = (parseInt(sym, 10));\n                    (0,_apicall__WEBPACK_IMPORTED_MODULE_0__.callApi)(latitude, longitude, chosenCityTime)\n                })\n\n        })\n        .catch(() => {\n            input.setAttribute('placeholder', 'Please Add a Valid City Name');\n            setTimeout(() => {\n                input.setAttribute('placeholder', 'Try Another City');\n            }, 3000)\n\n        })\n}\n\n//# sourceURL=webpack://weather/./src/components/localization.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css/style.css */ \"./src/css/style.css\");\n\n\n//# sourceURL=webpack://weather/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _components_apicall__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/apicall */ \"./src/components/apicall.js\");\n/* harmony import */ var _components_localization__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/localization */ \"./src/components/localization.js\");\n\n\n\n\nlet city = document.getElementById('city');\nlet form = document.querySelector('.city-entry');\n\nform.addEventListener('submit', (e) => {\n    e.preventDefault();\n    let chosenCity = city.value.trim();\n    (0,_components_localization__WEBPACK_IMPORTED_MODULE_2__.locateCity)(chosenCity);\n    city.value = \"\";\n    return;\n})\n\nif (navigator.geolocation) {\n    navigator.geolocation.getCurrentPosition(pos => {\n        let lat = pos.coords.latitude;\n        let lon = pos.coords.longitude;\n        let time = new Date().getHours();\n        (0,_components_apicall__WEBPACK_IMPORTED_MODULE_1__.callApi)(lat, lon, time);\n    })\n}\n\n//# sourceURL=webpack://weather/./src/index.js?");
 
 /***/ })
 
