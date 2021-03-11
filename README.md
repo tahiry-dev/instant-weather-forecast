@@ -2,7 +2,7 @@
 
 # Instant Weather Forecast
 
-> Be aware of the current weather in your city for the next 7 days every 3 hours
+> Be aware of the current weather in your city for the next 7 days, and that every 3 hours
 
 ![screenshot](https://user-images.githubusercontent.com/47100064/110806783-733b4680-8293-11eb-8b70-f423ba265579.png)
 
