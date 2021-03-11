@@ -50,13 +50,8 @@ lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
         daysValues[m].innerText = `${Math.trunc(apiData.daily[m + 1].temp.day)}°C`;
       }
 
-      if (currentTime >= 6 && currentTime < 21) {
-        img.setAttribute('alt', 'logo of weather');
-        img.setAttribute('src', `svgs/day/${apiData.current.weather[0].icon}.svg`);
-      } else {
-        img.setAttribute('alt', 'logo of weather');
-        img.setAttribute('src', `svgs/night/${apiData.current.weather[0].icon}.svg`);
-      }
+      img.setAttribute('alt', 'logo of weather');
+      img.setAttribute('src', `svgs/${apiData.current.weather[0].icon}.svg`);
 
       logoImg.appendChild(img);
     });
