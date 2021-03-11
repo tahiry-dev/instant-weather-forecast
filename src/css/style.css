@@ -1,39 +1,43 @@
-*, ::before, ::after{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #f1f1f1;
-    background:linear-gradient(45deg, rgb(105 45 48), rgb(59 74 58));
-    height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f1f1f1;
+  background: linear-gradient(45deg, rgb(105 45 48), rgb(59 74 58));
+  width: 25%;
+  height: 100vh;
 }
 
 .container {
- width: 800px;
- height: 602px;
- background: linear-gradient(45deg, #101db6, #e2127abf);
- display: grid;
- grid-template:100px 300px 100px 100px / repeat(8, 100px);
- margin: 100px auto 0;
- position: relative;
- border: 1px solid #f1f1f1;
+  width: 800px;
+  height: 602px;
+  background: linear-gradient(45deg, #101db6, #e2127abf);
+  display: grid;
+  grid-template: 100px 300px 100px 100px / repeat(8, 100px);
+  margin: 20% 0 20% 90%;
+  position: relative;
+  border: 1px solid #f1f1f1;
 }
 
 h1 {
   position: relative;
-  top: 8%;
-  left: 38%;
+  top: 15px;
+  left: 150%;
+  color: #859181;
 }
 
 form {
- grid-area: 1 / 1 / 2 / -1;
- display: flex;
- justify-content: center;
- align-items: center;
- border-bottom: 1px solid #f1f1f1;
+  grid-area: 1 / 1 / 2 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 form input {
@@ -44,8 +48,8 @@ form input {
   margin-right: 2px;
 }
 
-form input::placeholder{
-  color:  #a71e73;
+form input::placeholder {
+  color: #a71e73;
 }
 
 button {
@@ -64,13 +68,14 @@ button {
   align-items: center;
 }
 
-.logo, .info {
+.logo,
+.info {
   width: 50%;
 }
 
-.logo img{
-    width: 100%;
-    height: auto;
+.logo img {
+  width: 100%;
+  height: auto;
 }
 
 .info .weather {
@@ -78,11 +83,11 @@ button {
 }
 
 .info .weather::first-letter {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .info .temperature {
- font-size: 60px;
+  font-size: 60px;
 }
 
 .info .localization {
@@ -95,27 +100,31 @@ button {
 }
 
 .day-forecast {
-    grid-area: 4 / 1 / 5 / -1; 
+  grid-area: 4 / 1 / 5 / -1;
 }
 
-.hour-forecast, .day-forecast  {
+.hour-forecast,
+.day-forecast {
   display: grid;
   grid-template: 100px / repeat(7, 1fr);
 }
 
-.hour, .day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-top: 1px solid #f1f1f1;
-    font-size: 21px;
+.hour,
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-top: 1px solid #f1f1f1;
+  font-size: 21px;
 }
 
-.hour:not(:last-child), .day:not(:last-child) {
+.hour:not(:last-child),
+.day:not(:last-child) {
   border-right: 1px solid #f1f1f1;
 }
 
-.hour p, .day p {
+.hour p,
+.day p {
   margin: 5px;
 }
