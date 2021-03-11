@@ -1,7 +1,6 @@
 const APIKEY = '5020f52919e5e158831dceb8b9d46e77';
 
-
-const callApi = (lat, lon, currentTime) => {
+export const callApi = (lat, lon, currentTime) => {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&
 lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
         .then((response) => {
@@ -44,10 +43,10 @@ lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
 
             if (currentTime >= 6 && currentTime < 21) {
                 img.setAttribute('alt', 'logo of weather');
-                img.setAttribute('src', `ressources/jour/${apiData.current.weather[0].icon}.svg`);
+                img.setAttribute('src', `svgs/day/${apiData.current.weather[0].icon}.svg`);
             } else {
                 img.setAttribute('alt', 'logo of weather');
-                img.setAttribute('src', `ressources/nuit/${apiData.current.weather[0].icon}.svg`);
+                img.setAttribute('src', `svgs/night/${apiData.current.weather[0].icon}.svg`);
             }
 
             logoImg.appendChild(img);

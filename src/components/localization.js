@@ -1,7 +1,7 @@
 const MAPKEY = 'e38f9a4538444e94bac42b28e4027be5';
 const TIMEKEY = '99a67da6f017470da19b331a2c14b86c';
 
-const locateCity = (city) => {
+export const locateCity = (city) => {
     fetch(`http://api.positionstack.com/v1/forward?access_key=${MAPKEY}&query=${city}`)
 
         .then((response) => {
