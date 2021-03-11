@@ -22,7 +22,7 @@ The app will start from your current location,  but you can find information for
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple example steps:
 
 clone the repository to your folder
 
