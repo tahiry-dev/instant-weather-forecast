@@ -21,9 +21,9 @@ if (navigator.geolocation) {
     const lon = pos.coords.longitude;
     const time = new Date().getHours();
     let unit = 'metric';
-    let sym = 'C'
-
+    let sym = 'C';
     callApi(lat, lon, time, unit, sym);
+
 
     slider.addEventListener('change', () => {
       const lat = pos.coords.latitude;
@@ -38,18 +38,6 @@ if (navigator.geolocation) {
         sym = 'C';
       }
       callApi(lat, lon, time, unit, sym);
-    })
-
+    });
   });
-
 }
-
-
-
-
-
-
-
-
-
-

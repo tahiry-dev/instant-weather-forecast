@@ -22,7 +22,7 @@ export const locateCity = (city) => {
           const sym = time.split(':');
           const chosenCityTime = (parseInt(sym, 10));
           let unit = 'metric';
-          let degreeSym = 'C'
+          let degreeSym = 'C';
           callApi(latitude, longitude, chosenCityTime, unit, degreeSym);
 
           slider.addEventListener('change', () => {
@@ -39,8 +39,7 @@ export const locateCity = (city) => {
             }
 
             callApi(latitude, longitude, chosenCityTime, unit, degreeSym);
-          })
-
+          });
         });
     })
     .catch(() => {
