@@ -14,14 +14,14 @@ const logoImg = document.querySelector('.logo');
 const img = document.createElement('img');
 
 /* eslint-disable import/prefer-default-export */
-export const callApi = (lat, lon, currentTime) => {
+export const callApi = (lat, lon, currentTime, units, sym) => {
   fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&
-lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
+lon=${lon}&exclude=minutely&units=${units}&appid=${APIKEY}`)
     .then((response) => response.json())
     .then((informations) => {
       apiData = informations;
       weather.innerText = apiData.current.weather[0].description;
-      temperature.innerText = `${Math.trunc(apiData.current.temp)}°C`;
+      temperature.innerText = `${Math.trunc(apiData.current.temp)}°${sym}`;
       /* eslint-disable prefer-destructuring */
       const cityName = (apiData.timezone).split('/');
       localization.innerText = cityName[1];
@@ -39,7 +39,7 @@ lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
       }
 
       for (let j = 0; j < values.length; j += 1) {
-        values[j].innerText = `${Math.trunc(apiData.hourly[j * 3].temp)}°C`;
+        values[j].innerText = `${Math.trunc(apiData.hourly[j * 3].temp)}°${sym}`;
       }
 
       for (let k = 0; k < orderedDay.length; k += 1) {
@@ -47,7 +47,7 @@ lon=${lon}&exclude=minutely&units=metric&appid=${APIKEY}`)
       }
 
       for (let m = 0; m < 7; m += 1) {
-        daysValues[m].innerText = `${Math.trunc(apiData.daily[m + 1].temp.day)}°C`;
+        daysValues[m].innerText = `${Math.trunc(apiData.daily[m + 1].temp.day)}°${sym}`;
       }
 
       img.setAttribute('alt', 'logo of weather');
