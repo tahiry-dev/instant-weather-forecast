@@ -17,7 +17,7 @@ The app will start from your current location,  but you can find information for
 
 ## Live Demo
 
-[Live Demo Link](http://www.tahiry.live/instant-weather-forecast/)
+[Live Demo Link](https://www.tahiry.live/instant-weather-forecast/)
 
 
 ## Getting Started
